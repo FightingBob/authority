@@ -1,96 +1,136 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <!--基本信息-->
+    <description>authority</description>
     <modelVersion>4.0.0</modelVersion>
+    <name>authority</name>
+    <packaging>pom</packaging>
+
+    <!-- 聚合工程的父工程 -->
+    <groupId>com.bob.authority</groupId>
+    <artifactId>authority</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <!-- 继承springboot提供的父工程-->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.2.6.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
-    <groupId>com.bob</groupId>
-    <artifactId>authority</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>authority</name>
-    <description>Demo project for Spring Boot</description>
 
+    <!-- 声明多个子模块 -->
+    <modules>
+        <module>authority-common</module>
+        <module>authority-mbg</module>
+    </modules>
+
+    <!--统一版本管理-->
     <properties>
         <java.version>1.8</java.version>
+        <authority-common.version>0.0.1-SNAPSHOT</authority-common.version>
+        <authority-mbg.version>0.0.1-SNAPSHOT</authority-mbg.version>
+        <devtools.version>2.2.6.RELEASE</devtools.version>
+        <swagger2.version>2.9.2</swagger2.version>
+        <swagger2-ui.version>2.9.2</swagger2-ui.version>
+        <mysql.version>8.0.19</mysql.version>
+        <mapper.version>2.1.5</mapper.version>
+        <mybatis.generator.version>1.4.0</mybatis.generator.version>
+        <pagehelper.version>1.2.13</pagehelper.version>
+        <lombok.version>1.18.12</lombok.version>
+        <hutool.version>5.2.5</hutool.version>
     </properties>
 
+    <!--全局依赖-->
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!--   热部署     -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
-        <!--    swagger2 restful api文档    -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-        <!--    mysql数据库驱动  -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.19</version>
-        </dependency>
-
-        <!--    通用mapper    -->
-        <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper-spring-boot-starter</artifactId>
-            <version>2.1.5</version>
-        </dependency>
-        <!--    mybatis专用代码生成器    -->
-        <dependency>
-            <groupId>org.mybatis.generator</groupId>
-            <artifactId>mybatis-generator-core</artifactId>
-            <version>1.4.0</version>
-        </dependency>
-        <!--    mybatis分页    -->
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.2.13</version>
-        </dependency>
-
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
+    <!--依赖统一管理-->
+    <dependencyManagement>
+        <dependencies>
+            <!--authority通用模块-->
+            <dependency>
+                <groupId>com.bob.authority</groupId>
+                <artifactId>authority-common</artifactId>
+                <version>${authority-common.version}</version>
+            </dependency>
+            <!--authorityMBG生成模块-->
+            <dependency>
+                <groupId>com.bob.authority</groupId>
+                <artifactId>authority-mbg</artifactId>
+                <version>${authority-mbg.version}</version>
+            </dependency>
+            <!--   热部署     -->
+            <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <!--  devtools启动关键   -->
-                    <fork>true</fork>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+                <artifactId>spring-boot-devtools</artifactId>
+                <version>${devtools.version}</version>
+                <scope>runtime</scope>
+                <optional>true</optional>
+            </dependency>
+            <!--    swagger2 restful api文档    -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger2-ui.version}</version>
+            </dependency>
+            <!--    mysql数据库驱动  -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <!--    通用mapper    -->
+            <dependency>
+                <groupId>tk.mybatis</groupId>
+                <artifactId>mapper-spring-boot-starter</artifactId>
+                <version>${mapper.version}</version>
+            </dependency>
+            <!--    mybatis专用代码生成器    -->
+            <dependency>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-core</artifactId>
+                <version>${mybatis.generator.version}</version>
+            </dependency>
+            <!--    mybatis分页    -->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.version}</version>
+            </dependency>
+            <!--lombok-->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <!--hutool工具包-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
 
 </project>
