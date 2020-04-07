@@ -25,6 +25,7 @@
     <modules>
         <module>authority-common</module>
         <module>authority-mbg</module>
+        <module>authority-security</module>
     </modules>
 
     <!--统一版本管理-->
@@ -32,6 +33,7 @@
         <java.version>1.8</java.version>
         <authority-common.version>0.0.1-SNAPSHOT</authority-common.version>
         <authority-mbg.version>0.0.1-SNAPSHOT</authority-mbg.version>
+        <authority-security.version>0.0.1-SNAPSHOT</authority-security.version>
         <devtools.version>2.2.6.RELEASE</devtools.version>
         <swagger2.version>2.9.2</swagger2.version>
         <swagger2-ui.version>2.9.2</swagger2-ui.version>
@@ -41,6 +43,8 @@
         <pagehelper.version>1.2.13</pagehelper.version>
         <lombok.version>1.18.12</lombok.version>
         <hutool.version>5.2.5</hutool.version>
+        <security.version>2.2.6.RELEASE</security.version>
+        <jjwt.version>0.9.1</jjwt.version>
     </properties>
 
     <!--全局依赖-->
@@ -70,6 +74,11 @@
                 <groupId>com.bob.authority</groupId>
                 <artifactId>authority-mbg</artifactId>
                 <version>${authority-mbg.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.bob.authority</groupId>
+                <artifactId>authority-security</artifactId>
+                <version>${authority-security.version}</version>
             </dependency>
             <!--   热部署     -->
             <dependency>
@@ -128,7 +137,18 @@
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
-
+            <!--security 安全工具-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+                <version>${security.version}</version>
+            </dependency>
+            <!--jjwt登录支持-->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

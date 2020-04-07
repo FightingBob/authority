@@ -1,6 +1,7 @@
 package com.bob.authority.config;
 
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.autoconfigure.security.servlet.WebSecurityEnablerConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -14,5 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @MapperScan({
         "com.bob.authority.mapper"
 })
-public class MyBatisConfig {
+public class MyBatisConfig extends WebSecurityEnablerConfiguration {
+
+
 }
